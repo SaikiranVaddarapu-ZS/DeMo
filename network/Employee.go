@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/gorilla/mux"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -21,19 +20,21 @@ func (data Emp) String() string {
 	return fmt.Sprintf("Id : %v, Name : %v, Age : %v, Address : %v", data.Id, data.Name, data.Age, data.Address)
 }
 
-var data []Emp
+var Data []Emp
 
 func initialData() {
-	data = append(data, Emp{"12", "Saikiran", "22", "Hyderabad"})
+	Data = append(Data, Emp{"12", "Saikiran", "22", "Hyderabad"})
 }
 
-func addEmployee(e Emp, data []Emp) []Emp {
-	data = append(data, e)
-	return data
+func addEmployee(e Emp, Data []Emp) []Emp {
+	Data = append(Data, e)
+	return Data
 }
 
 func getEmployee(id string, data []Emp) (Emp, error) {
+
 	for _, val := range data {
+
 		if val.Id == id {
 			return val, nil
 		}
@@ -42,11 +43,14 @@ func getEmployee(id string, data []Emp) (Emp, error) {
 }
 
 func Employee(w http.ResponseWriter, r *http.Request) {
+	if len(Data) == 0 {
+		initialData()
+	}
 	switch r.Method {
 	case "GET":
 		w.Header().Set("Content-Type", "application/json")
-		empID := mux.Vars(r)["Id"]
-		reqData, err := getEmployee(empID, data)
+		empID := r.URL.Query().Get("Id")
+		reqData, err := getEmployee(empID, Data)
 		if err != nil {
 			w.WriteHeader(404)
 			return
@@ -61,16 +65,15 @@ func Employee(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w, "enter data")
 		}
 		json.Unmarshal(req, &emp)
-		data = addEmployee(emp, data)
+		Data = addEmployee(emp, Data)
 		w.WriteHeader(http.StatusCreated)
-		json.NewEncoder(w).Encode(data)
+		json.NewEncoder(w).Encode(Data)
 	default:
 		fmt.Fprintf(w, "Sorry, only GET and POST methods are supported.")
 	}
 }
 
 func main() {
-	initialData()
 	http.HandleFunc("/emp", Employee)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
