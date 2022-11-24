@@ -10,6 +10,7 @@ import (
 
 func main() {
 	router := mux.NewRouter()
-	router.HandleFunc("/emp", Emp.GetEmployeeHandler).Methods("GET")
+	router.HandleFunc("/employee", Emp.GetEmployeeHandler).Methods("GET")
+	router.HandleFunc("/allemployees", Emp.GetAllEmployeeHandler).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

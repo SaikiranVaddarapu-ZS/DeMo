@@ -19,6 +19,8 @@ type Dept struct {
 	Name string `json:"Name"`
 }
 
+var DB *sql.DB
+
 //func PostEmployeeHandler(w http.ResponseWriter, r *http.Request) {
 //	w.Header().Set("Content-Type", "application/json")
 //	db, err := sql.Open("mysql", "root:Saikiran@18@tcp(127.0.0.1:3306)/employeedata")
@@ -92,4 +94,20 @@ func GetEmployeeHandler(w http.ResponseWriter, r *http.Request) {
 	respBody, _ := json.Marshal(emp)
 
 	w.Write(respBody)
+}
+
+func GetAllEmployeeHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	db, err := sql.Open("mysql", "root:Saikiran@18@tcp(127.0.01)/employeedata")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	emp, er := GetEmployees(db)
+	if er != nil {
+		w.WriteHeader(400)
+		log.Println(err)
+	}
+	resp, _ := json.Marshal(emp)
+	w.Write(resp)
 }
