@@ -3,6 +3,7 @@ package Emp
 import (
 	"database/sql"
 	"encoding/json"
+	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -21,20 +22,26 @@ type Dept struct {
 
 var DB *sql.DB
 
-//func PostEmployeeHandler(w http.ResponseWriter, r *http.Request) {
-//	w.Header().Set("Content-Type", "application/json")
-//	db, err := sql.Open("mysql", "root:Saikiran@18@tcp(127.0.0.1:3306)/employeedata")
-//	if err != nil {
-//		w.WriteHeader(404)
-//		return
-//	}
-//	var e empl
-//	emp, err := ioutil.ReadAll(r.Body)
-//	if err != nil {
-//		w.WriteHeader(400)
-//	}
-//	json.Unmarshal(emp, e)
-//}
+func PostEmployeeHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	db, err := sql.Open("mysql", "root:Saikiran@18@tcp(127.0.0.1:3306)/employeedata")
+	if err != nil {
+		w.WriteHeader(404)
+		return
+	}
+	var e Emp
+	emp, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		w.WriteHeader(400)
+	}
+	json.Unmarshal(emp, &e)
+	_, er := db.Exec("insert into Employee values (?,?,?,?)", e.Id, e.Name, e.Dept.Id, e.Phone)
+	if er != nil {
+		log.Println(er)
+		return
+	}
+	w.WriteHeader(200)
+}
 
 func GetEmployees(db *sql.DB) ([]Emp, error) {
 	rows, err := db.Query("select e.id,e.name,e.phone,e.deptid,d.name from Employee e join Department d on e.deptid = d.id")
