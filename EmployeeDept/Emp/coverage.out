@@ -1,0 +1,24 @@
+mode: set
+EmployeeDept/Emp/Employee.go:25.66,29.16 4 1
+EmployeeDept/Emp/Employee.go:32.2,34.15 3 1
+EmployeeDept/Emp/Employee.go:38.2,40.14 3 0
+EmployeeDept/Emp/Employee.go:29.16,31.3 1 0
+EmployeeDept/Emp/Employee.go:34.15,37.3 2 1
+EmployeeDept/Emp/Employee.go:43.46,45.16 2 1
+EmployeeDept/Emp/Employee.go:49.2,53.18 3 1
+EmployeeDept/Emp/Employee.go:63.2,64.16 2 1
+EmployeeDept/Emp/Employee.go:68.2,68.23 1 1
+EmployeeDept/Emp/Employee.go:45.16,47.3 1 0
+EmployeeDept/Emp/Employee.go:53.18,56.17 3 1
+EmployeeDept/Emp/Employee.go:60.3,60.35 1 1
+EmployeeDept/Emp/Employee.go:56.17,58.4 1 0
+EmployeeDept/Emp/Employee.go:64.16,66.3 1 0
+EmployeeDept/Emp/Employee.go:71.54,75.16 4 1
+EmployeeDept/Emp/Employee.go:78.2,78.15 1 1
+EmployeeDept/Emp/Employee.go:75.16,77.3 1 0
+EmployeeDept/Emp/Employee.go:81.65,86.16 4 1
+EmployeeDept/Emp/Employee.go:91.2,94.19 3 1
+EmployeeDept/Emp/Employee.go:86.16,90.3 3 0
+EmployeeDept/Emp/Employee.go:97.68,100.15 3 1
+EmployeeDept/Emp/Employee.go:104.2,105.15 2 1
+EmployeeDept/Emp/Employee.go:100.15,103.3 2 0
